@@ -9,16 +9,17 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-List<dynamic> branch=[];
+  String selectedValue= "Branch";
 
-String? branchId;
-void initState(){
-  super.initState();
-  this.branch.add({"id":1,"label":"ISE"});
-  this.branch.add({"id":1,"label":"ISE"});
-
-}
-
+  List<DropdownMenuItem<String>> get dropdownItems{
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(value: "USA", child: Text("USA")),
+      const DropdownMenuItem(value: "Canada", child: Text("Canada")),
+      const DropdownMenuItem(value: "Brazil", child: Text("Brazil")),
+      const DropdownMenuItem(value: "England", child: Text("England")),
+    ];
+    return menuItems;
+  }
 
 
   @override
@@ -62,31 +63,17 @@ void initState(){
               ],
             ),
           ),
-          Column(
-            children: [
-            FormHelper.dropDownWidgetWithLabel(context,
-              "branch",
-              "select branch",
-              this.branchId,
-              this.branch,
-                (onChangedVal){
-              this.branchId=onChangedVal;
-              print("selected branch:$onChangedVal");
-                },
-                (onValidateVal){
-             if(onValidateVal==null){
-               return 'please select branch';
-             }
-             return null;
-            },
-              borderColor: Theme.of(context).primaryColor,
-              borderFocusColor: Theme.of(context).primaryColor,
-              borderRadius: 40,
-              optionValue: "id",
-              optionLabel: "label",
+          Container(
+            child: DropdownButton(
+                value: selectedValue,
+                items: dropdownItems,
+              onChanged: ( newValue){
+                setState(() {
+                  selectedValue = newValue!;
+                });
+              },
             ),
-            ],
-          ),
+          )
         ],
       ),
     );
