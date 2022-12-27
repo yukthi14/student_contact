@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_contact/SecondPage.dart';
+import 'package:student_contact/ThirdPage.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.cyan.shade50,
       body: Column(
         children: <Widget>[
@@ -36,6 +40,7 @@ class _FirstPageState extends State<FirstPage> {
               ),
             ],
           ),
+          //------------------SEARCH BAR---------------------------------
           Container(
             decoration: BoxDecoration(
                 color: const Color(0xfff5f8fd),
@@ -95,9 +100,35 @@ class _FirstPageState extends State<FirstPage> {
                   },
                 ),
               ),
+
             ],
-          )
+          ),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, CupertinoPageRoute(builder: (context)=> const ThirdPage()));
+            },
+
+            child: Container(
+              width: MediaQuery.of(context).size.width*0.3,
+              height: MediaQuery.of(context).size.height*0.07,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.66),
+              decoration: BoxDecoration(
+                color:  Colors.cyan.shade800,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child:const Center(child: Text("Show",style: TextStyle(fontSize: 25,color: Colors.white),)),
+            ),
+          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 25.0,
+        backgroundColor: Colors.cyan.shade800,
+        foregroundColor:  Colors.white,
+        child: const Text("+",style: TextStyle(fontSize: 25),),
+        onPressed: (){
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>const SecondPage()));
+        },
       ),
     );
   }

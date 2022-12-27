@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const dbName = "contact.db";
+  static const dbName = "student_contact.db";
   static const dbVersion = 1;
   static const dbTable = "students";
   static const dbStudentName = "studentName";
@@ -40,6 +40,7 @@ class DatabaseHelper {
       $dbFatherName VARCHAR(50),
       $dbFatherNumber TEXT,
       $dbBranch VARCHAR(10),
+      $dbEmailAddress TEXT,
       $dbSem TEXT
       )
       ''');
