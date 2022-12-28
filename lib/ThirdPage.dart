@@ -16,7 +16,8 @@ class ThirdPage extends StatefulWidget {
 
 class _ThirdPageState extends State<ThirdPage> {
   bool loadingData=true;
-
+  static bool deleteCheck=true;
+  String colorInt="" ;
   void getStudentData () async {
      setState((){
        loadingData=true;
@@ -31,7 +32,7 @@ class _ThirdPageState extends State<ThirdPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) =>getStudentData());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.cyan.shade50,
+      backgroundColor: Colors.cyan.shade100,
       body: Column(
         children: [
           Row(
@@ -65,24 +66,40 @@ class _ThirdPageState extends State<ThirdPage> {
             child: ListView.builder(
                 itemCount: Lists.studentData.length,
                 itemBuilder: (BuildContext context,int index){
-                  bool deleteCheck=true;
-                  var deleteIcon =Icons.delete;
+
               return GestureDetector(
                 onTap: (){
                   Navigator.push(context, CupertinoPageRoute(builder: (context)=> FourthPage(index: index,)));
                 },
                 onLongPress: (){
-                  print("i love setu setu setu setu setu setu setu setu setu setu setu setu setu setu");
+
                  setState(() {
-                   deleteCheck=false;
+                   colorInt=index.toString();
                  });
-                 print("i love you baby baby baby baby baby baby baby baby babay baby");
+
                 },
                 child: Container(
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height*0.01),
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height*0.02),
                   decoration: BoxDecoration(
-                    border: Border.all(color: deleteCheck?Colors.black:Colors.red),
-                    borderRadius: BorderRadius.circular(25)
+                    border: Border.all(color: colorInt==index.toString()?Colors.red:Colors.cyan.shade100),
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow:  [
+                    BoxShadow(
+                    color: Colors.cyan.shade200,
+                    offset: Offset(
+                      5.0,
+                      5.0,
+                    ),
+                    blurRadius: 10.0,
+                    spreadRadius: 2.0,
+                  ), //BoxShadow
+                  BoxShadow(
+                    color: Colors.cyan.shade100,
+                    offset: Offset(0.0, 0.0),
+                    blurRadius: 0.0,
+                    spreadRadius: 0.0,
+                  ), //BoxShadow
+                  ],
                   ),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height*0.08,
@@ -105,24 +122,22 @@ class _ThirdPageState extends State<ThirdPage> {
                       Column(
                         children: [
 
-                          deleteCheck?GestureDetector(
-                            onTap:(){
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=> FourthPage(index: index,)));
+                          GestureDetector(
+                            onTap:() async {
+
+                              if(colorInt==index.toString()){
+                                await DatabaseHelper.instance.deleteRecord(Lists.studentData[index]["studentUsn"]);
+                                Fluttertoast.showToast(msg: "Deleted");
+
+                              }
+                              else{
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=> FourthPage(index: index,)));
+                              }
                            },
                             child: Container(
 
                             margin:EdgeInsets.only(top:MediaQuery.of(context).size.height*0.02,right:MediaQuery.of(context).size.width*0.04,),
-                              child: const Icon(Icons.arrow_forward_ios),
-                            ),
-                          ):GestureDetector(
-                            onTap:() async {
-                              await DatabaseHelper.instance.deleteRecord(Lists.studentData[index]["studentUsn"]);
-                              Fluttertoast.showToast(msg: "Deleted");
-                            },
-                            child: Container(
-
-                              margin:EdgeInsets.only(top:MediaQuery.of(context).size.height*0.02,right:MediaQuery.of(context).size.width*0.04,),
-                              child: Icon(deleteIcon),
+                              child:  Icon(colorInt!=index.toString()?Icons.arrow_forward_ios:Icons.delete),
                             ),
                           )
                         ],

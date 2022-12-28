@@ -20,7 +20,7 @@ class _FirstPageState extends State<FirstPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.cyan.shade50,
+      backgroundColor: Colors.cyan.shade100,
       body: Column(
         children: <Widget>[
           Row(
@@ -34,7 +34,7 @@ class _FirstPageState extends State<FirstPage> {
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: const Text(
                     "Contact App",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500,),
                   ),
                 ),
               ),
@@ -45,7 +45,25 @@ class _FirstPageState extends State<FirstPage> {
             decoration: BoxDecoration(
                 color: const Color(0xfff5f8fd),
                 borderRadius: BorderRadius.circular(30),
-                border: Border.all(width: 2, color: Colors.cyan.shade400)),
+                border: Border.all(width: 2, color: Colors.cyan.shade200),
+              boxShadow:  [
+                BoxShadow(
+                  color: Colors.cyan.shade200,
+                  offset: Offset(
+                    8.0,
+                    8.0,
+                  ),
+                  blurRadius: 10.0,
+                  spreadRadius: 2.0,
+                ), //BoxShadow
+                BoxShadow(
+                  color: Colors.cyan.shade100,
+                  offset: Offset(0.0, 0.0),
+                  blurRadius: 0.0,
+                  spreadRadius: 0.0,
+                ), //BoxShadow
+              ],
+            ),
             padding: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.03,
                 right: MediaQuery.of(context).size.width * 0.03),
@@ -110,8 +128,8 @@ class _FirstPageState extends State<FirstPage> {
 
             child: Container(
               width: MediaQuery.of(context).size.width*0.3,
-              height: MediaQuery.of(context).size.height*0.07,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.66),
+              height: MediaQuery.of(context).size.height*0.06,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.68),
               decoration: BoxDecoration(
                 color:  Colors.cyan.shade800,
                 borderRadius: BorderRadius.circular(30),
