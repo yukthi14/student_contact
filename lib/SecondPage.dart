@@ -71,7 +71,7 @@ class _SecondPageState extends State<SecondPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -80,7 +80,7 @@ class _SecondPageState extends State<SecondPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -108,7 +108,7 @@ class _SecondPageState extends State<SecondPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -117,7 +117,7 @@ class _SecondPageState extends State<SecondPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -129,7 +129,7 @@ class _SecondPageState extends State<SecondPage> {
                 controller: _controllerUSN,
                 maxLength: 10,
                 decoration: const InputDecoration(
-                  hintText: "USN (should be correct,can be delete,but not edited)",
+                  hintText: "USN (can be delete,but not edited)",
                   counterText: "",
                   border: InputBorder.none,
                 ),
@@ -146,7 +146,7 @@ class _SecondPageState extends State<SecondPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -155,7 +155,7 @@ class _SecondPageState extends State<SecondPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -185,7 +185,7 @@ class _SecondPageState extends State<SecondPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -194,7 +194,7 @@ class _SecondPageState extends State<SecondPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -214,14 +214,14 @@ class _SecondPageState extends State<SecondPage> {
           Container(
             width:  MediaQuery.of(context).size.width,
             height:  MediaQuery.of(context).size.height*0.07,
-            margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.01),
+            margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.005),
             decoration: BoxDecoration(
               border: Border.all(color:Colors.cyan.shade100 ),
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -230,7 +230,7 @@ class _SecondPageState extends State<SecondPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -260,7 +260,7 @@ class _SecondPageState extends State<SecondPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -269,7 +269,7 @@ class _SecondPageState extends State<SecondPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -331,11 +331,14 @@ class _SecondPageState extends State<SecondPage> {
               GestureDetector(
 
                 onTap: () async {
-                  print((_controllerEmailId.text.endsWith("@gmail.com"))||
-                      (_controllerEmailId.text.endsWith("@hotmail.com"))||
-                      (_controllerEmailId.text.endsWith(".in")));
                   if(_controllerUSN.text.contains(' ')){
                     Fluttertoast.showToast(msg: "Remove Space");
+                  }
+                  else if(int.parse(_controllerFatherNumber.text)<6000000000){
+                    Fluttertoast.showToast(msg: "Invaild");
+                  }
+                  else if(int.parse(_controllerPhoneNumber.text)<6000000000){
+                    Fluttertoast.showToast(msg: "Invaild");
                   }
                   else if(_controllerUSN.text.length!=10){
                     Fluttertoast.showToast(msg: "Invalid USN");

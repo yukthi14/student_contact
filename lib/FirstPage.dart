@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:student_contact/SecondPage.dart';
 import 'package:student_contact/ThirdPage.dart';
+import 'package:student_contact/sqfliteDb/database.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class _FirstPageState extends State<FirstPage> {
   String? value1;
   final branch = ['ISE', 'CSE', 'ME', 'ECE', 'AI'];
   final sem = ['1', '2', '3', '4', '5', '6', '7', '8'];
-
+final TextEditingController _controllerSearch=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +51,7 @@ class _FirstPageState extends State<FirstPage> {
               boxShadow:  [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     8.0,
                     8.0,
                   ),
@@ -58,7 +60,7 @@ class _FirstPageState extends State<FirstPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -73,14 +75,32 @@ class _FirstPageState extends State<FirstPage> {
                 right: MediaQuery.of(context).size.width * 0.03,
                 bottom: MediaQuery.of(context).size.width * 0.03),
             child: Row(
-              children: const <Widget>[
+              children:  <Widget>[
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
+                    maxLength: 10,
+                    controller:  _controllerSearch,
+                    decoration:const InputDecoration(
+                      counterText: "",
                         hintText: "Search by USN", border: InputBorder.none),
                   ),
                 ),
-                Icon(Icons.search)
+                GestureDetector(
+                  onTap: (){
+                    if(_controllerSearch.text.length==10){
+                      try {
+                        DatabaseHelper.instance
+                            .queryStudentRecord(_controllerSearch.text);
+                      }catch(e){
+                        print(e.toString());
+                        Fluttertoast.showToast(msg: "Invalid USN");
+                      }
+                    }
+                    else if(_controllerSearch.text.length<10){
+                      Fluttertoast.showToast(msg: "Invalid USN");
+                    }
+                  },
+                    child: const Icon(Icons.search))
               ],
             ),
           ),
@@ -123,7 +143,9 @@ class _FirstPageState extends State<FirstPage> {
           ),
           GestureDetector(
             onTap: (){
-              Navigator.push(context, CupertinoPageRoute(builder: (context)=> const ThirdPage()));
+
+                Navigator.push(context, CupertinoPageRoute(builder: (context)=> const ThirdPage()));
+
             },
 
             child: Container(

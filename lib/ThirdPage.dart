@@ -52,7 +52,7 @@ class _ThirdPageState extends State<ThirdPage> {
                         child: Icon(Icons.arrow_back_ios,color: Colors.cyan.shade900,),),
                     ),
                     Container(
-                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.20),
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.23),
                         child: Text(
                           "Contact List",
                           style: TextStyle(fontSize: 30,color: Colors.cyan.shade900,fontWeight:FontWeight.w500),
@@ -86,7 +86,7 @@ class _ThirdPageState extends State<ThirdPage> {
                     boxShadow:  [
                     BoxShadow(
                     color: Colors.cyan.shade200,
-                    offset: Offset(
+                    offset: const Offset(
                       5.0,
                       5.0,
                     ),
@@ -95,7 +95,7 @@ class _ThirdPageState extends State<ThirdPage> {
                   ), //BoxShadow
                   BoxShadow(
                     color: Colors.cyan.shade100,
-                    offset: Offset(0.0, 0.0),
+                    offset: const Offset(0.0, 0.0),
                     blurRadius: 0.0,
                     spreadRadius: 0.0,
                   ), //BoxShadow

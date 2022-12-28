@@ -72,4 +72,11 @@ class DatabaseHelper {
     Database? db = await instance.database;
     return await db!.update(dbTable, row,where: '$dbStudentUsn=?',whereArgs: [id]);
   }
+
+  Future<List<Map<String, dynamic>>> queryStudentRecord(String id) async {
+    Database? db = await instance.database;
+    return await db!.query(dbTable,where:'$dbStudentUsn=?',whereArgs: [id]);
+  }
+
+
 }

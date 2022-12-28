@@ -69,20 +69,39 @@ class _FourthPageState extends State<FourthPage> {
                 ),
                 InkWell(
                   onTap: (){
-                  DatabaseHelper.instance.updateRecord(Lists.studentData[widget.index]["studentUsn"], {
-                    DatabaseHelper.dbStudentName:_controllerName.text,
-                    DatabaseHelper.dbStudentNumber:_controllerPhoneNumber.text,
-                    DatabaseHelper.dbFatherName:_controllerFatherName.text,
-                    DatabaseHelper.dbFatherNumber:_controllerFatherNumber.text,
-                    DatabaseHelper.dbEmailAddress:_controllerEmailId.text,
-                    DatabaseHelper.dbBranch:_controllerBranch.text,
-                    DatabaseHelper.dbSem:_controllerSem.text,
-                  });
-                    Fluttertoast.showToast(msg: "Saved");
-                    Navigator.pop(context);
+                    if(int.parse(_controllerPhoneNumber.text)<6000000000){
+                      Fluttertoast.showToast(msg: "Invaild");
+                    }
+                    else if(int.parse(_controllerFatherNumber.text)<6000000000){
+                      Fluttertoast.showToast(msg: "Invaild");
+                    }
+                   else  if(_controllerEmailId.text.contains(' ')){
+                      Fluttertoast.showToast(msg: "Remove Space");
+                    }
+                    else if(!(_controllerEmailId.text.endsWith("@gmail.com"))&&
+                        !(_controllerEmailId.text.endsWith("@hotmail.com"))&&
+                        !(_controllerEmailId.text.endsWith(".in"))){
+                      Fluttertoast.showToast(msg: "Invalid Email Id");
+                    }
+                   else {
+                      DatabaseHelper.instance.updateRecord(
+                          Lists.studentData[widget.index]["studentUsn"], {
+                        DatabaseHelper.dbStudentName: _controllerName.text,
+                        DatabaseHelper.dbStudentNumber:
+                            _controllerPhoneNumber.text,
+                        DatabaseHelper.dbFatherName: _controllerFatherName.text,
+                        DatabaseHelper.dbFatherNumber:
+                            _controllerFatherNumber.text,
+                        DatabaseHelper.dbEmailAddress: _controllerEmailId.text,
+                        DatabaseHelper.dbBranch: _controllerBranch.text,
+                        DatabaseHelper.dbSem: _controllerSem.text,
+                      });
+                      Fluttertoast.showToast(msg: "Saved");
+                      Navigator.pop(context);
+                    }
                   },
                   child: Container(
-                    width: MediaQuery.of(context).size.width*0.1,
+                    width: MediaQuery.of(context).size.width*0.07,
                     height: MediaQuery.of(context).size.height*0.04,
                     margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.19),
 
@@ -104,7 +123,7 @@ class _FourthPageState extends State<FourthPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -113,7 +132,7 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -254,7 +273,7 @@ class _FourthPageState extends State<FourthPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -263,7 +282,7 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
