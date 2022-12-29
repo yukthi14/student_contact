@@ -5,6 +5,8 @@ import 'package:student_contact/SecondPage.dart';
 import 'package:student_contact/ThirdPage.dart';
 import 'package:student_contact/sqfliteDb/database.dart';
 
+import 'constants.dart';
+
 class FirstPage extends StatefulWidget {
   const FirstPage({Key? key}) : super(key: key);
 
@@ -141,6 +143,18 @@ final TextEditingController _controllerSearch=TextEditingController();
 
             ],
           ),
+          SizedBox(
+            width:MediaQuery.of(context).size.width ,
+            height:MediaQuery.of(context).size.height*0.1 ,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height*0.2,
+                child: Text("Student Strength - ",style: TextStyle(fontSize: 24,fontWeight:FontWeight.w400 ),),
+              ),
+            ),
+          ),
           GestureDetector(
             onTap: (){
 
@@ -150,22 +164,42 @@ final TextEditingController _controllerSearch=TextEditingController();
 
             child: Container(
               width: MediaQuery.of(context).size.width*0.3,
-              height: MediaQuery.of(context).size.height*0.06,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.68),
+              height: MediaQuery.of(context).size.height*0.05,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15),
               decoration: BoxDecoration(
-                color:  Colors.cyan.shade800,
+                color:  Colors.cyan.shade100,
                 borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                  width: 2,
+                  color: Colors.white,
+                ),
+                boxShadow:  [
+                  BoxShadow(
+                    color:  Colors.cyan.shade500,
+                    offset: const Offset(
+                      5.0,
+                      5.0,
+                    ),
+                    blurRadius: 10.0,
+                    spreadRadius: 2.0,
+                  ), //BoxShadow
+                  BoxShadow(
+                    color: Colors.cyan.shade900,
+                    offset: const Offset(0.0, 0.0),
+                    blurRadius: 0.0,
+                    spreadRadius: 0.0,
+                  ), //BoxShadow
+                ],
               ),
-              child:const Center(child: Text("Show",style: TextStyle(fontSize: 25,color: Colors.white),)),
+              child:const Center(child: Text("Show",style: TextStyle(fontSize: 25,color: Colors.black,fontStyle: FontStyle.italic),)),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        elevation: 25.0,
-        backgroundColor: Colors.cyan.shade800,
-        foregroundColor:  Colors.white,
-        child: const Text("+",style: TextStyle(fontSize: 25),),
+        elevation: 20.0,
+        backgroundColor: Colors.cyan.shade200,
+        child: const Text("+",style: TextStyle(fontSize: 25,color: Colors.black,),),
         onPressed: (){
           Navigator.push(context,MaterialPageRoute(builder: (context)=>const SecondPage()));
         },
