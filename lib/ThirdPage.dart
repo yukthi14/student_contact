@@ -7,8 +7,8 @@ import 'FourthPage.dart';
 import 'constants.dart';
 
 class ThirdPage extends StatefulWidget {
-  const ThirdPage({Key? key}) : super(key: key);
-
+  const ThirdPage({Key? key , required this.dataCall}) : super(key: key);
+final bool dataCall;
   @override
   State<ThirdPage> createState() => _ThirdPageState();
 }
@@ -19,13 +19,16 @@ class _ThirdPageState extends State<ThirdPage> {
   static bool deleteCheck=true;
   String colorInt="" ;
   void getStudentData () async {
-     setState((){
-       loadingData=true;
-     });
-     Lists.studentData=await DatabaseHelper.instance.queryRecord();
-    setState(() {
-      loadingData=false;
-    });
+
+    if (widget.dataCall){
+      setState(() {
+        loadingData = true;
+      });
+      Lists.studentData = await DatabaseHelper.instance.queryRecord();
+      setState(() {
+        loadingData = false;
+      });
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -112,7 +115,7 @@ class _ThirdPageState extends State<ThirdPage> {
 
                           Container(
                               margin:EdgeInsets.only(left:MediaQuery.of(context).size.width*0.04,top: MediaQuery.of(context).size.height*0.01,),
-                              child: Text(Lists.studentData[index]["studentName"],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)),
+                              child: Text(Lists.studentData[index]["studentName"],style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)),
                           Container(
                               margin:EdgeInsets.only(left:MediaQuery.of(context).size.width*0.04,top: MediaQuery.of(context).size.height*0.01,),
                               child:  Text(Lists.studentData[index]["studentUsn"])),

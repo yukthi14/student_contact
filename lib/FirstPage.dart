@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:student_contact/SecondPage.dart';
 import 'package:student_contact/ThirdPage.dart';
+import 'package:student_contact/firebase.dart';
 import 'package:student_contact/sqfliteDb/database.dart';
 
 import 'constants.dart';
@@ -22,6 +24,7 @@ class _FirstPageState extends State<FirstPage> {
 final TextEditingController _controllerSearch=TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final provider=Provider.of<FirebaseData>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.cyan.shade100,
@@ -88,10 +91,11 @@ final TextEditingController _controllerSearch=TextEditingController();
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () async {
                     if(_controllerSearch.text.length==10){
                       try {
-                        DatabaseHelper.instance
+
+                        Lists.studentData=await DatabaseHelper.instance
                             .queryStudentRecord(_controllerSearch.text);
                       }catch(e){
                         print(e.toString());
@@ -101,6 +105,7 @@ final TextEditingController _controllerSearch=TextEditingController();
                     else if(_controllerSearch.text.length<10){
                       Fluttertoast.showToast(msg: "Invalid USN");
                     }
+                    Navigator.push(context, CupertinoPageRoute(builder: (context)=>const ThirdPage(dataCall:false,)));
                   },
                     child: const Icon(Icons.search))
               ],
@@ -148,18 +153,52 @@ final TextEditingController _controllerSearch=TextEditingController();
             height:MediaQuery.of(context).size.height*0.1 ,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height*0.2,
-                child: Text("Student Strength - ",style: TextStyle(fontSize: 24,fontWeight:FontWeight.w400 ),),
+                child: const Text("Student Strength - ",style: TextStyle(fontSize: 24,fontWeight:FontWeight.w400 ),),
               ),
             ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () async {
+              provider.getData();
+               if(value!=null || value1 != null){
+               if(value==null  ){
+                 Lists.studentData=await DatabaseHelper.instance.queryBySemester(value1!);
+                 Navigator.push(context, CupertinoPageRoute(builder: (context)=>const ThirdPage(dataCall:false,)));
+               }
+               else if(value1==null){
+                 Lists.studentData=await DatabaseHelper.instance.queryByBranch(value!);
+                 Navigator.push(context, CupertinoPageRoute(builder: (context)=>const ThirdPage(dataCall:false,)));
+               }
+               else if(value!=null && value1!=null){
 
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=> const ThirdPage()));
+                 Lists.studentData=await DatabaseHelper.instance.queryBySemester(value1!);
+                 for(var branch in Lists.studentData){
+                 if(branch["branch"]==value){
 
+
+                        Lists.tempData.add(branch);
+
+                    }
+
+                 }
+                 Lists.studentData=Lists.tempData;
+
+                 Lists.tempData=[];
+                 Navigator.push(context, CupertinoPageRoute(builder: (context)=>const ThirdPage(dataCall:false,)));
+               }
+
+               }
+               else{
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const ThirdPage(
+                              dataCall: true,
+                            )));
+              }
             },
 
             child: Container(

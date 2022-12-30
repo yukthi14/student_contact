@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1024604093225",
+    "firebase_url": "https://student-contact-44d9d-default-rtdb.firebaseio.com",
+    "project_id": "student-contact-44d9d",
+    "storage_bucket": "student-contact-44d9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024604093225:android:64e5fa2e06f299faddd538",
+        "android_client_info": {
+          "package_name": "com.example.student_contact"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024604093225-1v2ftb48bprg5tllhu6vftarflfpc60b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_fvjc7kkZK_kSusuYqHytxYRqPSZbEy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024604093225-1v2ftb48bprg5tllhu6vftarflfpc60b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -159,7 +159,7 @@ class _FourthPageState extends State<FourthPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -168,7 +168,7 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -198,7 +198,7 @@ class _FourthPageState extends State<FourthPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -207,7 +207,7 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -234,7 +234,7 @@ class _FourthPageState extends State<FourthPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
-                  offset: Offset(
+                  offset: const Offset(
                     5.0,
                     5.0,
                   ),
@@ -243,7 +243,7 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
                 BoxShadow(
                   color: Colors.cyan.shade100,
-                  offset: Offset(0.0, 0.0),
+                  offset: const Offset(0.0, 0.0),
                   blurRadius: 0.0,
                   spreadRadius: 0.0,
                 ), //BoxShadow
@@ -311,7 +311,7 @@ class _FourthPageState extends State<FourthPage> {
                  boxShadow: [
                    BoxShadow(
                      color: Colors.cyan.shade200,
-                     offset: Offset(
+                     offset: const Offset(
                        5.0,
                        5.0,
                      ),
@@ -320,7 +320,7 @@ class _FourthPageState extends State<FourthPage> {
                    ), //BoxShadow
                    BoxShadow(
                      color: Colors.cyan.shade100,
-                     offset: Offset(0.0, 0.0),
+                     offset: const Offset(0.0, 0.0),
                      blurRadius: 0.0,
                      spreadRadius: 0.0,
                    ), //BoxShadow
@@ -347,7 +347,7 @@ class _FourthPageState extends State<FourthPage> {
                  boxShadow: [
                    BoxShadow(
                      color: Colors.cyan.shade200,
-                     offset: Offset(
+                     offset: const Offset(
                        5.0,
                        5.0,
                      ),
@@ -356,7 +356,7 @@ class _FourthPageState extends State<FourthPage> {
                    ), //BoxShadow
                    BoxShadow(
                      color: Colors.cyan.shade100,
-                     offset: Offset(0.0, 0.0),
+                     offset: const Offset(0.0, 0.0),
                      blurRadius: 0.0,
                      spreadRadius: 0.0,
                    ), //BoxShadow

@@ -8,6 +8,8 @@ class DatabaseHelper {
   static const dbName = "student_contact.db";
   static const dbVersion = 1;
   static const dbTable = "students";
+  static const dbSec="section";
+  static const dbGender="gender";
   static const dbStudentName = "studentName";
   static const dbStudentUsn = "studentUsn";
   static const dbStudentNumber = "studentNumber";
@@ -41,6 +43,8 @@ class DatabaseHelper {
       $dbFatherNumber TEXT,
       $dbBranch VARCHAR(10),
       $dbEmailAddress TEXT,
+      $dbGender VARCHAR(10),
+      $dbSec VARCHAR(1),
       $dbSem TEXT
       )
       ''');
@@ -76,6 +80,16 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> queryStudentRecord(String id) async {
     Database? db = await instance.database;
     return await db!.query(dbTable,where:'$dbStudentUsn=?',whereArgs: [id]);
+  }
+
+  Future<List<Map<String, dynamic>>> queryByBranch(String? id) async {
+    Database? db = await instance.database;
+    return await db!.query(dbTable,where:'$dbBranch=?',whereArgs: [id]);
+  }
+
+  Future<List<Map<String, dynamic>>> queryBySemester(String? id) async {
+    Database? db = await instance.database;
+    return await db!.query(dbTable,where:'$dbSem=?',whereArgs: [id]);
   }
 
 
