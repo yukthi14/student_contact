@@ -5,36 +5,37 @@ import 'package:student_contact/sqfliteDb/database.dart';
 import 'constants.dart';
 
 class FourthPage extends StatefulWidget {
-  const FourthPage({Key? key,required this.index}) : super(key: key);
+  const FourthPage({Key? key, required this.index}) : super(key: key);
   final int index;
   @override
   State<FourthPage> createState() => _FourthPageState();
 }
 
 class _FourthPageState extends State<FourthPage> {
-  final TextEditingController _controllerName=TextEditingController();
-  final TextEditingController _controllerPhoneNumber=TextEditingController();
-  final TextEditingController _controllerFatherName=TextEditingController();
-  final TextEditingController _controllerFatherNumber=TextEditingController();
-  final TextEditingController _controllerEmailId=TextEditingController();
-  final TextEditingController _controllerBranch=TextEditingController();
-  final TextEditingController _controllerSem=TextEditingController();
+  final TextEditingController _controllerName = TextEditingController();
+  final TextEditingController _controllerPhoneNumber = TextEditingController();
+  final TextEditingController _controllerFatherName = TextEditingController();
+  final TextEditingController _controllerFatherNumber = TextEditingController();
+  final TextEditingController _controllerEmailId = TextEditingController();
+  final TextEditingController _controllerBranch = TextEditingController();
+  final TextEditingController _controllerSem = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controllerName.text=Lists.studentData[widget.index]["studentName"];
-    _controllerPhoneNumber.text=Lists.studentData[widget.index]["studentNumber"];
-    _controllerFatherName.text=Lists.studentData[widget.index]["fatherName"];
-    _controllerFatherNumber.text=Lists.studentData[widget.index]["fatherNumber"];
-    _controllerEmailId.text=Lists.studentData[widget.index]["emailAddress"];
-    _controllerBranch.text=Lists.studentData[widget.index]["branch"];
-    _controllerSem.text=Lists.studentData[widget.index]["sem"];
+    _controllerName.text = Lists.studentData[widget.index]["studentName"];
+    _controllerPhoneNumber.text =
+        Lists.studentData[widget.index]["studentNumber"];
+    _controllerFatherName.text = show;
+    _controllerFatherNumber.text = show;
+    _controllerEmailId.text = show;
+    _controllerBranch.text = Lists.studentData[widget.index]["branch"];
+    _controllerSem.text = Lists.studentData[widget.index]["sem"];
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.cyan.shade100,
@@ -46,46 +47,48 @@ class _FourthPageState extends State<FourthPage> {
             child: Row(
               children: [
                 GestureDetector(
-
-                  onTap: (){
+                  onTap: () {
                     Navigator.pop(context);
                   },
-
                   child: Container(
-                    margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.03),
-                      child: Icon(Icons.arrow_back_ios,color: Colors.cyan.shade900,),
+                    margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.03),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.cyan.shade900,
+                    ),
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width*0.4,
-                  height: MediaQuery.of(context).size.height*0.04,
-                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.21),
-
-                   child: Center(
-                     child: Text(
-                       Lists.studentData[widget.index]["studentUsn"],style: const TextStyle(fontSize: 25,fontWeight: FontWeight.w500),
-                     ),
-                   ),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.04,
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.21),
+                  child: Center(
+                    child: Text(
+                      Lists.studentData[widget.index]["usn"],
+                      style: const TextStyle(
+                          fontSize: 25, fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ),
                 InkWell(
-                  onTap: (){
-                    if(int.parse(_controllerPhoneNumber.text)<6000000000){
+                  onTap: () {
+                    if (int.parse(_controllerPhoneNumber.text) < 6000000000) {
                       Fluttertoast.showToast(msg: "Invaild");
-                    }
-                    else if(int.parse(_controllerFatherNumber.text)<6000000000){
+                    } else if (int.parse(_controllerFatherNumber.text) <
+                        6000000000) {
                       Fluttertoast.showToast(msg: "Invaild");
-                    }
-                   else  if(_controllerEmailId.text.contains(' ')){
+                    } else if (_controllerEmailId.text.contains(' ')) {
                       Fluttertoast.showToast(msg: "Remove Space");
-                    }
-                    else if(!(_controllerEmailId.text.endsWith("@gmail.com"))&&
-                        !(_controllerEmailId.text.endsWith("@hotmail.com"))&&
-                        !(_controllerEmailId.text.endsWith(".in"))){
+                    } else if (!(_controllerEmailId.text
+                            .endsWith("@gmail.com")) &&
+                        !(_controllerEmailId.text.endsWith("@hotmail.com")) &&
+                        !(_controllerEmailId.text.endsWith(".in"))) {
                       Fluttertoast.showToast(msg: "Invalid Email Id");
-                    }
-                   else {
+                    } else {
                       DatabaseHelper.instance.updateRecord(
-                          Lists.studentData[widget.index]["studentUsn"], {
+                          Lists.studentData[widget.index]["usn"], {
                         DatabaseHelper.dbStudentName: _controllerName.text,
                         DatabaseHelper.dbStudentNumber:
                             _controllerPhoneNumber.text,
@@ -101,12 +104,14 @@ class _FourthPageState extends State<FourthPage> {
                     }
                   },
                   child: Container(
-                    width: MediaQuery.of(context).size.width*0.07,
-                    height: MediaQuery.of(context).size.height*0.04,
-                    margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.19),
-
-                    child: const Icon(Icons.check,size: 30,),
-
+                    width: MediaQuery.of(context).size.width * 0.07,
+                    height: MediaQuery.of(context).size.height * 0.04,
+                    margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.19),
+                    child: const Icon(
+                      Icons.check,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -114,11 +119,12 @@ class _FourthPageState extends State<FourthPage> {
           ),
           //------------------------------EDITOR-----------------------------------------------
           Container(
-            width:  MediaQuery.of(context).size.width,
-            height:  MediaQuery.of(context).size.height*0.07,
-            margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.13),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.07,
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.13),
             decoration: BoxDecoration(
-              border: Border.all(color:Colors.cyan.shade100 ),
+              border: Border.all(color: Colors.cyan.shade100),
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
                 BoxShadow(
@@ -139,7 +145,7 @@ class _FourthPageState extends State<FourthPage> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 30.0,top: 2),
+              padding: const EdgeInsets.only(left: 30.0, top: 2),
               child: TextField(
                 controller: _controllerName,
                 decoration: const InputDecoration(
@@ -150,11 +156,12 @@ class _FourthPageState extends State<FourthPage> {
             ),
           ),
           Container(
-            width:  MediaQuery.of(context).size.width,
-            height:  MediaQuery.of(context).size.height*0.07,
-            margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.005),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.07,
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.005),
             decoration: BoxDecoration(
-              border: Border.all(color:Colors.cyan.shade100 ),
+              border: Border.all(color: Colors.cyan.shade100),
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
                 BoxShadow(
@@ -175,7 +182,7 @@ class _FourthPageState extends State<FourthPage> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 30.0,top: 2),
+              padding: const EdgeInsets.only(left: 30.0, top: 2),
               child: TextField(
                 controller: _controllerPhoneNumber,
                 keyboardType: TextInputType.number,
@@ -189,11 +196,12 @@ class _FourthPageState extends State<FourthPage> {
             ),
           ),
           Container(
-            width:  MediaQuery.of(context).size.width,
-            height:  MediaQuery.of(context).size.height*0.07,
-            margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.005),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.07,
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.005),
             decoration: BoxDecoration(
-              border: Border.all(color:Colors.cyan.shade100 ),
+              border: Border.all(color: Colors.cyan.shade100),
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
                 BoxShadow(
@@ -213,11 +221,11 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
               ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30.0,top: 2),
+            child: const Padding(
+              padding: EdgeInsets.only(left: 30.0, top: 2),
               child: TextField(
-                controller: _controllerFatherName,
-                decoration: const InputDecoration(
+                // controller: _controllerFatherName,
+                decoration: InputDecoration(
                   hintText: "Father Name",
                   border: InputBorder.none,
                 ),
@@ -225,11 +233,12 @@ class _FourthPageState extends State<FourthPage> {
             ),
           ),
           Container(
-            width:  MediaQuery.of(context).size.width,
-            height:  MediaQuery.of(context).size.height*0.07,
-            margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.005),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.07,
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.005),
             decoration: BoxDecoration(
-              border: Border.all(color:Colors.cyan.shade100 ),
+              border: Border.all(color: Colors.cyan.shade100),
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
                 BoxShadow(
@@ -249,13 +258,13 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
               ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30.0,top: 2),
+            child: const Padding(
+              padding: EdgeInsets.only(left: 30.0, top: 2),
               child: TextField(
-                controller: _controllerFatherNumber,
+                // controller: _controllerFatherNumber,
                 keyboardType: TextInputType.number,
                 maxLength: 10,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: "Father Number",
                   counterText: "",
                   border: InputBorder.none,
@@ -264,11 +273,12 @@ class _FourthPageState extends State<FourthPage> {
             ),
           ),
           Container(
-            width:  MediaQuery.of(context).size.width,
-            height:  MediaQuery.of(context).size.height*0.07,
-            margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.005),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.07,
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.005),
             decoration: BoxDecoration(
-              border: Border.all(color:Colors.cyan.shade100 ),
+              border: Border.all(color: Colors.cyan.shade100),
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
                 BoxShadow(
@@ -289,7 +299,7 @@ class _FourthPageState extends State<FourthPage> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 30.0,top: 2),
+              padding: const EdgeInsets.only(left: 30.0, top: 2),
               child: TextField(
                 controller: _controllerEmailId,
                 decoration: const InputDecoration(
@@ -299,85 +309,89 @@ class _FourthPageState extends State<FourthPage> {
               ),
             ),
           ),
-         Row(
-           children: [
-             Container(
-               width:  MediaQuery.of(context).size.width*0.4,
-               height:  MediaQuery.of(context).size.height*0.07,
-               margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.01,left: MediaQuery.of(context).size.width*0.07),
-               decoration: BoxDecoration(
-                 border: Border.all(color:Colors.cyan.shade100 ),
-                 borderRadius: BorderRadius.circular(40),
-                 boxShadow: [
-                   BoxShadow(
-                     color: Colors.cyan.shade200,
-                     offset: const Offset(
-                       5.0,
-                       5.0,
-                     ),
-                     blurRadius: 10.0,
-                     spreadRadius: 2.0,
-                   ), //BoxShadow
-                   BoxShadow(
-                     color: Colors.cyan.shade100,
-                     offset: const Offset(0.0, 0.0),
-                     blurRadius: 0.0,
-                     spreadRadius: 0.0,
-                   ), //BoxShadow
-                 ],
-               ),
-               child: Padding(
-                 padding: const EdgeInsets.only(left: 30.0,top: 2),
-                 child: TextField(
-                   controller: _controllerBranch,
-                   decoration: const InputDecoration(
-                     hintText: "Branch",
-                     border: InputBorder.none,
-                   ),
-                 ),
-               ),
-             ),
-             Container(
-               width:  MediaQuery.of(context).size.width*0.4,
-               height:  MediaQuery.of(context).size.height*0.07,
-               margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.01,left: MediaQuery.of(context).size.width*0.07),
-               decoration: BoxDecoration(
-                 border: Border.all(color:Colors.cyan.shade100 ),
-                 borderRadius: BorderRadius.circular(40),
-                 boxShadow: [
-                   BoxShadow(
-                     color: Colors.cyan.shade200,
-                     offset: const Offset(
-                       5.0,
-                       5.0,
-                     ),
-                     blurRadius: 10.0,
-                     spreadRadius: 2.0,
-                   ), //BoxShadow
-                   BoxShadow(
-                     color: Colors.cyan.shade100,
-                     offset: const Offset(0.0, 0.0),
-                     blurRadius: 0.0,
-                     spreadRadius: 0.0,
-                   ), //BoxShadow
-                 ],
-               ),
-               child: Padding(
-                 padding: const EdgeInsets.only(left: 30.0,top: 2),
-                 child: TextField(
-                   controller: _controllerSem,
-                   maxLength: 1,
-                   keyboardType: TextInputType.number,
-                   decoration: const InputDecoration(
-                     hintText: "Semester",
-                     counterText: "",
-                     border: InputBorder.none,
-                   ),
-                 ),
-               ),
-             ),
-           ],
-         ),
+          Row(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: MediaQuery.of(context).size.height * 0.07,
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.01,
+                    left: MediaQuery.of(context).size.width * 0.07),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.cyan.shade100),
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.cyan.shade200,
+                      offset: const Offset(
+                        5.0,
+                        5.0,
+                      ),
+                      blurRadius: 10.0,
+                      spreadRadius: 2.0,
+                    ), //BoxShadow
+                    BoxShadow(
+                      color: Colors.cyan.shade100,
+                      offset: const Offset(0.0, 0.0),
+                      blurRadius: 0.0,
+                      spreadRadius: 0.0,
+                    ), //BoxShadow
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30.0, top: 2),
+                  child: TextField(
+                    controller: _controllerBranch,
+                    decoration: const InputDecoration(
+                      hintText: "Branch",
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: MediaQuery.of(context).size.height * 0.07,
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.01,
+                    left: MediaQuery.of(context).size.width * 0.07),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.cyan.shade100),
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.cyan.shade200,
+                      offset: const Offset(
+                        5.0,
+                        5.0,
+                      ),
+                      blurRadius: 10.0,
+                      spreadRadius: 2.0,
+                    ), //BoxShadow
+                    BoxShadow(
+                      color: Colors.cyan.shade100,
+                      offset: const Offset(0.0, 0.0),
+                      blurRadius: 0.0,
+                      spreadRadius: 0.0,
+                    ), //BoxShadow
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30.0, top: 2),
+                  child: TextField(
+                    controller: _controllerSem,
+                    maxLength: 1,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      hintText: "Semester",
+                      counterText: "",
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

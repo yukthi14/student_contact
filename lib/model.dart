@@ -17,29 +17,26 @@ class Welcome {
   String gender;
   int sem;
 
-  factory Welcome.fromJson(Map<dynamic, dynamic> json) =>
-      Welcome(
+  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
         usn: json["usn"],
         studentName: json["studentName"],
         branch: json["branch"],
-        emailAddress: json["emailAddress "],
-        studentNumber: json["studentNumber "],
-        gender: json["gender "],
+        emailAddress: json["emailAddress"],
+        studentNumber: json["studentNumber"],
+        gender: json["gender"],
         sem: json["sem"],
       );
 
-  Map<String, dynamic> toMap()  {
-  Map<String, dynamic> data={
-  "usn": usn,
-  "studentName": studentName,
-  "branch": branch,
-
-  "emailAddress ": emailAddress,
-  "studentNumber ": studentNumber,
-  "gender ": gender,
-  "sem": sem
-  };
-  return data;
-}
-
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> data = {
+      "usn": usn,
+      "studentName": studentName,
+      "branch": branch,
+      "emailAddress ": emailAddress,
+      "studentNumber ": studentNumber,
+      "gender ": gender,
+      "sem": sem
+    };
+    return data;
+  }
 }

@@ -21,10 +21,11 @@ class _FirstPageState extends State<FirstPage> {
   String? value1;
   final branch = ['ISE', 'CSE', 'ME', 'ECE', 'AI'];
   final sem = ['1', '2', '3', '4', '5', '6', '7', '8'];
-final TextEditingController _controllerSearch=TextEditingController();
+  final TextEditingController _controllerSearch = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final provider=Provider.of<FirebaseData>(context);
+    final provider = Provider.of<FirebaseData>(context);
+    provider.getData();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.cyan.shade100,
@@ -41,7 +42,10 @@ final TextEditingController _controllerSearch=TextEditingController();
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: const Text(
                     "Contact App",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500,),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
@@ -50,10 +54,10 @@ final TextEditingController _controllerSearch=TextEditingController();
           //------------------SEARCH BAR---------------------------------
           Container(
             decoration: BoxDecoration(
-                color: const Color(0xfff5f8fd),
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(width: 2, color: Colors.cyan.shade200),
-              boxShadow:  [
+              color: const Color(0xfff5f8fd),
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(width: 2, color: Colors.cyan.shade200),
+              boxShadow: [
                 BoxShadow(
                   color: Colors.cyan.shade200,
                   offset: const Offset(
@@ -80,33 +84,37 @@ final TextEditingController _controllerSearch=TextEditingController();
                 right: MediaQuery.of(context).size.width * 0.03,
                 bottom: MediaQuery.of(context).size.width * 0.03),
             child: Row(
-              children:  <Widget>[
+              children: <Widget>[
                 Expanded(
                   child: TextField(
                     maxLength: 10,
-                    controller:  _controllerSearch,
-                    decoration:const InputDecoration(
-                      counterText: "",
-                        hintText: "Search by USN", border: InputBorder.none),
+                    controller: _controllerSearch,
+                    decoration: const InputDecoration(
+                        counterText: "",
+                        hintText: "Search by USN",
+                        border: InputBorder.none),
                   ),
                 ),
                 GestureDetector(
-                  onTap: () async {
-                    if(_controllerSearch.text.length==10){
-                      try {
-
-                        Lists.studentData=await DatabaseHelper.instance
-                            .queryStudentRecord(_controllerSearch.text);
-                      }catch(e){
-                        print(e.toString());
+                    onTap: () async {
+                      if (_controllerSearch.text.length == 10) {
+                        try {
+                          Lists.studentData = await DatabaseHelper.instance
+                              .queryStudentRecord(_controllerSearch.text);
+                        } catch (e) {
+                          print(e.toString());
+                          Fluttertoast.showToast(msg: "Invalid USN");
+                        }
+                      } else if (_controllerSearch.text.length < 10) {
                         Fluttertoast.showToast(msg: "Invalid USN");
                       }
-                    }
-                    else if(_controllerSearch.text.length<10){
-                      Fluttertoast.showToast(msg: "Invalid USN");
-                    }
-                    Navigator.push(context, CupertinoPageRoute(builder: (context)=>const ThirdPage(dataCall:false,)));
-                  },
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const ThirdPage(
+                                    dataCall: false,
+                                  )));
+                    },
                     child: const Icon(Icons.search))
               ],
             ),
@@ -145,53 +153,63 @@ final TextEditingController _controllerSearch=TextEditingController();
                   },
                 ),
               ),
-
             ],
           ),
           SizedBox(
-            width:MediaQuery.of(context).size.width ,
-            height:MediaQuery.of(context).size.height*0.1 ,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.1,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height*0.2,
-                child: const Text("Student Strength - ",style: TextStyle(fontSize: 24,fontWeight:FontWeight.w400 ),),
+                height: MediaQuery.of(context).size.height * 0.2,
+                child: const Text(
+                  "Student Strength - ",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+                ),
               ),
             ),
           ),
           GestureDetector(
             onTap: () async {
-              provider.getData();
-               if(value!=null || value1 != null){
-               if(value==null  ){
-                 Lists.studentData=await DatabaseHelper.instance.queryBySemester(value1!);
-                 Navigator.push(context, CupertinoPageRoute(builder: (context)=>const ThirdPage(dataCall:false,)));
-               }
-               else if(value1==null){
-                 Lists.studentData=await DatabaseHelper.instance.queryByBranch(value!);
-                 Navigator.push(context, CupertinoPageRoute(builder: (context)=>const ThirdPage(dataCall:false,)));
-               }
-               else if(value!=null && value1!=null){
-
-                 Lists.studentData=await DatabaseHelper.instance.queryBySemester(value1!);
-                 for(var branch in Lists.studentData){
-                 if(branch["branch"]==value){
-
-
-                        Lists.tempData.add(branch);
-
+              if (value != null || value1 != null) {
+                if (value == null) {
+                  Lists.studentData =
+                      await DatabaseHelper.instance.queryBySemester(value1!);
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const ThirdPage(
+                                dataCall: false,
+                              )));
+                } else if (value1 == null) {
+                  Lists.studentData =
+                      await DatabaseHelper.instance.queryByBranch(value!);
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const ThirdPage(
+                                dataCall: false,
+                              )));
+                } else if (value != null && value1 != null) {
+                  Lists.studentData =
+                      await DatabaseHelper.instance.queryBySemester(value1!);
+                  for (var branch in Lists.studentData) {
+                    if (branch["branch"] == value) {
+                      Lists.tempData.add(branch);
                     }
+                  }
+                  Lists.studentData = Lists.tempData;
 
-                 }
-                 Lists.studentData=Lists.tempData;
-
-                 Lists.tempData=[];
-                 Navigator.push(context, CupertinoPageRoute(builder: (context)=>const ThirdPage(dataCall:false,)));
-               }
-
-               }
-               else{
+                  Lists.tempData = [];
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const ThirdPage(
+                                dataCall: false,
+                              )));
+                }
+              } else {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
@@ -200,21 +218,21 @@ final TextEditingController _controllerSearch=TextEditingController();
                             )));
               }
             },
-
             child: Container(
-              width: MediaQuery.of(context).size.width*0.3,
-              height: MediaQuery.of(context).size.height*0.05,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15),
+              width: MediaQuery.of(context).size.width * 0.3,
+              height: MediaQuery.of(context).size.height * 0.05,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.15),
               decoration: BoxDecoration(
-                color:  Colors.cyan.shade100,
+                color: Colors.cyan.shade100,
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(
                   width: 2,
                   color: Colors.white,
                 ),
-                boxShadow:  [
+                boxShadow: [
                   BoxShadow(
-                    color:  Colors.cyan.shade500,
+                    color: Colors.cyan.shade500,
                     offset: const Offset(
                       5.0,
                       5.0,
@@ -230,7 +248,14 @@ final TextEditingController _controllerSearch=TextEditingController();
                   ), //BoxShadow
                 ],
               ),
-              child:const Center(child: Text("Show",style: TextStyle(fontSize: 25,color: Colors.black,fontStyle: FontStyle.italic),)),
+              child: const Center(
+                  child: Text(
+                "Show",
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.black,
+                    fontStyle: FontStyle.italic),
+              )),
             ),
           ),
         ],
@@ -238,9 +263,16 @@ final TextEditingController _controllerSearch=TextEditingController();
       floatingActionButton: FloatingActionButton(
         elevation: 20.0,
         backgroundColor: Colors.cyan.shade200,
-        child: const Text("+",style: TextStyle(fontSize: 25,color: Colors.black,),),
-        onPressed: (){
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>const SecondPage()));
+        child: const Text(
+          "+",
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.black,
+          ),
+        ),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SecondPage()));
         },
       ),
     );
