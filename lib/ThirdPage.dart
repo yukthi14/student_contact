@@ -23,6 +23,7 @@ class _ThirdPageState extends State<ThirdPage> {
         loadingData = true;
       });
       Lists.studentData = await DatabaseHelper.instance.queryRecord();
+      print(Lists.studentData[1]["usn"]);
       setState(() {
         loadingData = false;
       });

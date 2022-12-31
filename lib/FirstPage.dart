@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 import 'package:student_contact/SecondPage.dart';
 import 'package:student_contact/ThirdPage.dart';
 import 'package:student_contact/firebase.dart';
@@ -17,6 +16,12 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  @override
+  void initState() {
+    FirebaseData().getData();
+    super.initState();
+  }
+
   String? value;
   String? value1;
   final branch = ['ISE', 'CSE', 'ME', 'ECE', 'AI'];
@@ -24,8 +29,6 @@ class _FirstPageState extends State<FirstPage> {
   final TextEditingController _controllerSearch = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<FirebaseData>(context);
-    provider.getData();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.cyan.shade100,
@@ -271,6 +274,7 @@ class _FirstPageState extends State<FirstPage> {
           ),
         ),
         onPressed: () {
+          FirebaseData().getData();
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const SecondPage()));
         },
