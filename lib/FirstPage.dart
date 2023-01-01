@@ -274,7 +274,6 @@ class _FirstPageState extends State<FirstPage> {
           ),
         ),
         onPressed: () {
-          FirebaseData().checkingData();
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const SecondPage()));
         },
