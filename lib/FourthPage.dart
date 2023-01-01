@@ -27,8 +27,18 @@ class _FourthPageState extends State<FourthPage> {
     _controllerName.text = Lists.studentData[widget.index]["studentName"];
     _controllerPhoneNumber.text =
         Lists.studentData[widget.index]["studentNumber"];
-    _controllerFatherName.text = show;
-    _controllerFatherNumber.text = show;
+    String? checkOperator = Lists.studentData[widget.index]["fatherName"];
+    String? checkOperator1 = Lists.studentData[widget.index]["fatherNumber"];
+    if (checkOperator == null) {
+      _controllerFatherName.text = show;
+    } else {
+      _controllerFatherName.text = checkOperator;
+    }
+    if (checkOperator1 == null) {
+      _controllerFatherNumber.text = show;
+    } else {
+      _controllerFatherName.text = checkOperator1;
+    }
     _controllerEmailId.text = Lists.studentData[widget.index]["emailAddress"];
     _controllerBranch.text = Lists.studentData[widget.index]["branch"];
     _controllerSem.text = Lists.studentData[widget.index]["sem"];

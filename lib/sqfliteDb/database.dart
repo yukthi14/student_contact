@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const dbName = "s111.db";
+  static const dbName = "s222.db";
   static const dbVersion = 1;
   static const dbTable = "students";
   static const dbSec = "section";
@@ -41,6 +41,8 @@ class DatabaseHelper {
       $dbStudentName VARCHAR(50),
       $dbStudentUsn VARCHAR(10) PRIMARY KEY,
       $dbStudentNumber TEXT,
+      $dbFatherNumber TEXT,
+      $dbFatherName TEXT,
       
   
       $dbBranch VARCHAR(10),

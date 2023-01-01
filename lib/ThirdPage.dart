@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:student_contact/FirstPage.dart';
 import 'package:student_contact/sqfliteDb/database.dart';
 
 import 'FourthPage.dart';
@@ -165,6 +166,10 @@ class _ThirdPageState extends State<ThirdPage> {
                                     await DatabaseHelper.instance.deleteRecord(
                                         Lists.studentData[index]["usn"]);
                                     Fluttertoast.showToast(msg: "Deleted");
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => FirstPage()));
                                   } else {
                                     Navigator.push(
                                         context,

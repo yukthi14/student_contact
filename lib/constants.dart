@@ -1,7 +1,6 @@
-class Lists{
-  static var studentData=[];
-  static var tempData=[];
-
+class Lists {
+  static var studentData = [];
+  static var tempData = [];
 }
 
-const String show= " ";
+const String show = "";
