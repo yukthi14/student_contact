@@ -29,7 +29,7 @@ class _FourthPageState extends State<FourthPage> {
         Lists.studentData[widget.index]["studentNumber"];
     _controllerFatherName.text = show;
     _controllerFatherNumber.text = show;
-    _controllerEmailId.text = show;
+    _controllerEmailId.text = Lists.studentData[widget.index]["emailAddress"];
     _controllerBranch.text = Lists.studentData[widget.index]["branch"];
     _controllerSem.text = Lists.studentData[widget.index]["sem"];
   }

@@ -23,7 +23,10 @@ class _ThirdPageState extends State<ThirdPage> {
         loadingData = true;
       });
       Lists.studentData = await DatabaseHelper.instance.queryRecord();
-      print(Lists.studentData[1]["usn"]);
+      for (int i = 1; i < Lists.studentData.length; i++) {
+        print(Lists.studentData[i]["emailAddress"]);
+      }
+      print(Lists.studentData.length);
       setState(() {
         loadingData = false;
       });
@@ -31,8 +34,14 @@ class _ThirdPageState extends State<ThirdPage> {
   }
 
   @override
+  void initState() {
+    getStudentData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => getStudentData());
+    // WidgetsBinding.instance.addPostFrameCallback((_) => getStudentData());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.cyan.shade100,

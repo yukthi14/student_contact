@@ -18,7 +18,7 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
   @override
   void initState() {
-    FirebaseData().getData();
+    FirebaseData().getStudentData();
     super.initState();
   }
 
@@ -274,7 +274,7 @@ class _FirstPageState extends State<FirstPage> {
           ),
         ),
         onPressed: () {
-          FirebaseData().getData();
+          FirebaseData().checkingData();
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const SecondPage()));
         },
