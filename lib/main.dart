@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_contact/firebase.dart';
+import 'package:student_contact/splashscreen.dart';
 
 import 'FirstPage.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.white,
         ),
-        home: const FirstPage(),
+        home: const SplashScreen(),
       ),
     );
   }

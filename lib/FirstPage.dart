@@ -158,18 +158,40 @@ class _FirstPageState extends State<FirstPage> {
               ),
             ],
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.1,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.2,
-                child: const Text(
-                  "Student Strength - ",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.6,
+              height:  MediaQuery.of(context).size.height * 0.3,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.15),
+              decoration:  BoxDecoration(
+                image: const DecorationImage(
+                  image: AssetImage('assets/amc.png'),
+                  fit: BoxFit.contain,
+                  alignment: Alignment.center,
                 ),
+                borderRadius: BorderRadius.circular(250),
+                border: Border.all(
+                  width: 9,
+                  color: Colors.cyan.shade500,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.cyan.shade600,
+                    offset: const Offset(
+                      5.0,
+                      5.0,
+                    ),
+                    blurRadius: 50.0,
+                    spreadRadius: 3.0,
+                  ), //BoxShadow
+                  BoxShadow(
+                    color: Colors.indigo.shade900,
+                    offset: const Offset(0.0, 0.0),
+                    blurRadius: 0.0,
+                    spreadRadius: 0.0,
+                  ), //BoxShadow
+                ],
               ),
             ),
           ),
@@ -223,9 +245,9 @@ class _FirstPageState extends State<FirstPage> {
             },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.06,
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.15),
+                  top: MediaQuery.of(context).size.height * 0.22),
               decoration: BoxDecoration(
                 color: Colors.cyan.shade100,
                 borderRadius: BorderRadius.circular(30),

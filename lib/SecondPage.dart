@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:student_contact/firebase.dart';
 import 'package:student_contact/sqflitedb/database.dart';
@@ -394,13 +395,34 @@ class _SecondPageState extends State<SecondPage> {
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.09),
                   decoration: BoxDecoration(
-                    color: Colors.cyan.shade800,
+                    color: Colors.cyan.shade100,
                     borderRadius: BorderRadius.circular(30),
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.cyan.shade900,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.cyan.shade300,
+                        offset: const Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 20.0,
+                        spreadRadius: 3.0,
+                      ), //BoxShadow
+                      BoxShadow(
+                        color: Colors.cyan.shade900,
+                        offset: const Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ), //BoxShadow
+                    ],
                   ),
                   child: const Center(
                       child: Text(
                     "Submit",
-                    style: TextStyle(fontSize: 25, color: Colors.white),
+                    style: TextStyle(fontSize: 25, color: Colors.black,fontStyle: FontStyle.italic),
                   )),
                 ),
               ),
