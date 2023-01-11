@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:student_contact/firebase.dart';
 import 'package:student_contact/sqflitedb/database.dart';
@@ -422,7 +421,10 @@ class _SecondPageState extends State<SecondPage> {
                   child: const Center(
                       child: Text(
                     "Submit",
-                    style: TextStyle(fontSize: 25, color: Colors.black,fontStyle: FontStyle.italic),
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.black,
+                        fontStyle: FontStyle.italic),
                   )),
                 ),
               ),

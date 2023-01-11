@@ -6,6 +6,7 @@ import 'package:student_contact/sqfliteDb/database.dart';
 
 import 'FourthPage.dart';
 import 'constants.dart';
+import 'firebase.dart';
 
 class ThirdPage extends StatefulWidget {
   const ThirdPage({Key? key, required this.dataCall}) : super(key: key);
@@ -16,7 +17,6 @@ class ThirdPage extends StatefulWidget {
 
 class _ThirdPageState extends State<ThirdPage> {
   bool loadingData = true;
-  static bool deleteCheck = true;
   String colorInt = "";
   void getStudentData() async {
     if (widget.dataCall) {
@@ -25,7 +25,8 @@ class _ThirdPageState extends State<ThirdPage> {
       });
       Lists.studentData = await DatabaseHelper.instance.queryRecord();
       for (int i = 1; i < Lists.studentData.length; i++) {
-        print(Lists.studentData[i]["emailAddress"]);
+        print(Lists.studentData[i]["usn"]);
+        print(i);
       }
       print(Lists.studentData.length);
       setState(() {
@@ -42,7 +43,6 @@ class _ThirdPageState extends State<ThirdPage> {
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) => getStudentData());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.cyan.shade100,
@@ -86,6 +86,7 @@ class _ThirdPageState extends State<ThirdPage> {
           Expanded(
             child: ListView.builder(
                 itemCount: Lists.studentData.length,
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
@@ -133,12 +134,25 @@ class _ThirdPageState extends State<ThirdPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Hero(
+                            tag: '$index',
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              height: MediaQuery.of(context).size.height * 0.25,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: AssetImage('assets/images.png'),
+                                      fit: BoxFit.fill)),
+                            ),
+                          ),
                           Column(
                             children: [
                               Container(
+                                  // color: Colors.black,
                                   margin: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.width *
-                                        0.04,
+                                    right:
+                                        MediaQuery.of(context).size.width * 0.1,
                                     top: MediaQuery.of(context).size.height *
                                         0.01,
                                   ),
@@ -150,8 +164,8 @@ class _ThirdPageState extends State<ThirdPage> {
                                   )),
                               Container(
                                   margin: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.width *
-                                        0.04,
+                                    right:
+                                        MediaQuery.of(context).size.width * 0.1,
                                     top: MediaQuery.of(context).size.height *
                                         0.01,
                                   ),
@@ -163,7 +177,10 @@ class _ThirdPageState extends State<ThirdPage> {
                               GestureDetector(
                                 onTap: () async {
                                   if (colorInt == index.toString()) {
+                                    print(index);
                                     await DatabaseHelper.instance.deleteRecord(
+                                        Lists.studentData[index]["usn"]);
+                                    FirebaseData().deleteData(
                                         Lists.studentData[index]["usn"]);
                                     Fluttertoast.showToast(msg: "Deleted");
                                     Navigator.push(

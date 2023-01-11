@@ -103,7 +103,15 @@ class _FirstPageState extends State<FirstPage> {
                       if (_controllerSearch.text.length == 10) {
                         try {
                           Lists.studentData = await DatabaseHelper.instance
-                              .queryStudentRecord(_controllerSearch.text);
+                              .queryStudentRecord(
+                                  _controllerSearch.text.toUpperCase());
+
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => const ThirdPage(
+                                        dataCall: false,
+                                      )));
                         } catch (e) {
                           print(e.toString());
                           Fluttertoast.showToast(msg: "Invalid USN");
@@ -111,12 +119,6 @@ class _FirstPageState extends State<FirstPage> {
                       } else if (_controllerSearch.text.length < 10) {
                         Fluttertoast.showToast(msg: "Invalid USN");
                       }
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => const ThirdPage(
-                                    dataCall: false,
-                                  )));
                     },
                     child: const Icon(Icons.search))
               ],
@@ -161,10 +163,10 @@ class _FirstPageState extends State<FirstPage> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.6,
-              height:  MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.3,
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.15),
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 image: const DecorationImage(
                   image: AssetImage('assets/amc.png'),
                   fit: BoxFit.contain,

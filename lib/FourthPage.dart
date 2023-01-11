@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:student_contact/FirstPage.dart';
+import 'package:student_contact/firebase.dart';
 import 'package:student_contact/sqfliteDb/database.dart';
 
 import 'constants.dart';
@@ -27,18 +30,9 @@ class _FourthPageState extends State<FourthPage> {
     _controllerName.text = Lists.studentData[widget.index]["studentName"];
     _controllerPhoneNumber.text =
         Lists.studentData[widget.index]["studentNumber"];
-    String? checkOperator = Lists.studentData[widget.index]["fatherName"];
-    String? checkOperator1 = Lists.studentData[widget.index]["fatherNumber"];
-    if (checkOperator == null) {
-      _controllerFatherName.text = show;
-    } else {
-      _controllerFatherName.text = checkOperator;
-    }
-    if (checkOperator1 == null) {
-      _controllerFatherNumber.text = show;
-    } else {
-      _controllerFatherName.text = checkOperator1;
-    }
+    _controllerFatherName.text = Lists.studentData[widget.index]["fatherName"];
+    _controllerFatherNumber.text =
+        Lists.studentData[widget.index]["fatherNumber"];
     _controllerEmailId.text = Lists.studentData[widget.index]["emailAddress"];
     _controllerBranch.text = Lists.studentData[widget.index]["branch"];
     _controllerSem.text = Lists.studentData[widget.index]["sem"];
@@ -51,88 +45,112 @@ class _FourthPageState extends State<FourthPage> {
       backgroundColor: Colors.cyan.shade100,
       body: Column(
         children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.1,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.03),
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.cyan.shade900,
-                    ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.03,
+                      top: MediaQuery.of(context).size.height * 0.05),
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.cyan.shade900,
                   ),
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: MediaQuery.of(context).size.height * 0.04,
+                margin: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.21,
+                    top: MediaQuery.of(context).size.height * 0.05),
+                child: Center(
+                  child: Text(
+                    Lists.studentData[widget.index]["usn"],
+                    style: const TextStyle(
+                        fontSize: 25, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  if (int.parse(_controllerPhoneNumber.text) < 6000000000) {
+                    Fluttertoast.showToast(msg: "Invaild");
+                  } else if (int.parse(_controllerFatherNumber.text) <
+                      6000000000) {
+                    Fluttertoast.showToast(msg: "Invaild");
+                  } else if (_controllerEmailId.text.contains(' ')) {
+                    Fluttertoast.showToast(msg: "Remove Space");
+                  } else if (!(_controllerEmailId.text
+                          .endsWith("@gmail.com")) &&
+                      !(_controllerEmailId.text.endsWith("@hotmail.com")) &&
+                      !(_controllerEmailId.text.endsWith(".in"))) {
+                    Fluttertoast.showToast(msg: "Invalid Email Id");
+                  } else {
+                    DatabaseHelper.instance
+                        .updateRecord(Lists.studentData[widget.index]["usn"], {
+                      DatabaseHelper.dbStudentName: _controllerName.text,
+                      DatabaseHelper.dbStudentNumber:
+                          _controllerPhoneNumber.text,
+                      DatabaseHelper.dbFatherName: _controllerFatherName.text,
+                      DatabaseHelper.dbFatherNumber:
+                          _controllerFatherNumber.text,
+                      DatabaseHelper.dbEmailAddress: _controllerEmailId.text,
+                      DatabaseHelper.dbBranch: _controllerBranch.text,
+                      DatabaseHelper.dbSem: _controllerSem.text,
+                    });
+                    FirebaseData().updateData(
+                        _controllerName.text,
+                        _controllerPhoneNumber.text,
+                        Lists.studentData[widget.index]["usn"],
+                        _controllerFatherName.text,
+                        _controllerFatherNumber.text,
+                        _controllerEmailId.text,
+                        _controllerBranch.text,
+                        _controllerSem.text);
+                    Fluttertoast.showToast(msg: "Saved");
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => const FirstPage()));
+                  }
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.07,
                   height: MediaQuery.of(context).size.height * 0.04,
                   margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.21),
-                  child: Center(
-                    child: Text(
-                      Lists.studentData[widget.index]["usn"],
-                      style: const TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.w500),
-                    ),
+                      left: MediaQuery.of(context).size.width * 0.19,
+                      top: MediaQuery.of(context).size.height * 0.05),
+                  child: const Icon(
+                    Icons.check,
+                    size: 30,
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    if (int.parse(_controllerPhoneNumber.text) < 6000000000) {
-                      Fluttertoast.showToast(msg: "Invaild");
-                    } else if (int.parse(_controllerFatherNumber.text) <
-                        6000000000) {
-                      Fluttertoast.showToast(msg: "Invaild");
-                    } else if (_controllerEmailId.text.contains(' ')) {
-                      Fluttertoast.showToast(msg: "Remove Space");
-                    } else if (!(_controllerEmailId.text
-                            .endsWith("@gmail.com")) &&
-                        !(_controllerEmailId.text.endsWith("@hotmail.com")) &&
-                        !(_controllerEmailId.text.endsWith(".in"))) {
-                      Fluttertoast.showToast(msg: "Invalid Email Id");
-                    } else {
-                      DatabaseHelper.instance.updateRecord(
-                          Lists.studentData[widget.index]["usn"], {
-                        DatabaseHelper.dbStudentName: _controllerName.text,
-                        DatabaseHelper.dbStudentNumber:
-                            _controllerPhoneNumber.text,
-                        DatabaseHelper.dbFatherName: _controllerFatherName.text,
-                        DatabaseHelper.dbFatherNumber:
-                            _controllerFatherNumber.text,
-                        DatabaseHelper.dbEmailAddress: _controllerEmailId.text,
-                        DatabaseHelper.dbBranch: _controllerBranch.text,
-                        DatabaseHelper.dbSem: _controllerSem.text,
-                      });
-                      Fluttertoast.showToast(msg: "Saved");
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.07,
-                    height: MediaQuery.of(context).size.height * 0.04,
-                    margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.19),
-                    child: const Icon(
-                      Icons.check,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           //------------------------------EDITOR-----------------------------------------------
+          Hero(
+            tag: '${widget.index}',
+            child: Container(
+              width: MediaQuery.of(context).size.width * 1,
+              height: MediaQuery.of(context).size.height * 0.3,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage('assets/images.png'),
+                      fit: BoxFit.fill)),
+            ),
+          ),
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.07,
             margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.13),
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.cyan.shade100),
               borderRadius: BorderRadius.circular(40),
@@ -231,11 +249,11 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
               ],
             ),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 30.0, top: 2),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30.0, top: 2),
               child: TextField(
-                // controller: _controllerFatherName,
-                decoration: InputDecoration(
+                controller: _controllerFatherName,
+                decoration: const InputDecoration(
                   hintText: "Father Name",
                   border: InputBorder.none,
                 ),
@@ -268,13 +286,13 @@ class _FourthPageState extends State<FourthPage> {
                 ), //BoxShadow
               ],
             ),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 30.0, top: 2),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30.0, top: 2),
               child: TextField(
-                // controller: _controllerFatherNumber,
+                controller: _controllerFatherNumber,
                 keyboardType: TextInputType.number,
                 maxLength: 10,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Father Number",
                   counterText: "",
                   border: InputBorder.none,
