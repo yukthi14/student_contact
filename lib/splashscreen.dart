@@ -25,47 +25,57 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const FirstPage(),
+          builder: (context) =>  const FirstPage(),
         ),
       );
     });
   }
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.8,
-          height: MediaQuery.of(context).size.width * 0.8,
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage('assets/Contact.gif'),
-              fit: BoxFit.contain,
-              alignment: Alignment.center,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width:  MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/splashbackground.jpg'),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage('assets/Contact.gif'),
+                fit: BoxFit.contain,
+                alignment: Alignment.center,
+              ),
+              borderRadius: BorderRadius.circular(200),
+              border: Border.all(
+                width: 3,
+                color: Colors.cyan.shade500,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.cyan.shade600,
+                  offset: const Offset(
+                    5.0,
+                    5.0,
+                  ),
+                  blurRadius: 50.0,
+                  spreadRadius: 3.0,
+                ), //BoxShadow
+                BoxShadow(
+                  color: Colors.indigo.shade900,
+                  offset: const Offset(0.0, 0.0),
+                  blurRadius: 0.0,
+                  spreadRadius: 0.0,
+                ), //BoxShadow
+              ],
             ),
-            borderRadius: BorderRadius.circular(200),
-            border: Border.all(
-              width: 3,
-              color: Colors.cyan.shade500,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.cyan.shade600,
-                offset: const Offset(
-                  5.0,
-                  5.0,
-                ),
-                blurRadius: 50.0,
-                spreadRadius: 3.0,
-              ), //BoxShadow
-              BoxShadow(
-                color: Colors.indigo.shade900,
-                offset: const Offset(0.0, 0.0),
-                blurRadius: 0.0,
-                spreadRadius: 0.0,
-              ), //BoxShadow
-            ],
           ),
         ),
       ),
