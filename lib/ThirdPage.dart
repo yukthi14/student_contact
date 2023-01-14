@@ -14,6 +14,7 @@ class ThirdPage extends StatefulWidget {
   @override
   State<ThirdPage> createState() => _ThirdPageState();
 }
+
 class _ThirdPageState extends State<ThirdPage> {
   bool loadingData = true;
   String colorInt = "";
@@ -33,11 +34,13 @@ class _ThirdPageState extends State<ThirdPage> {
       });
     }
   }
+
   @override
   void initState() {
     getStudentData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,14 +48,14 @@ class _ThirdPageState extends State<ThirdPage> {
       //backgroundColor: Colors.cyan.shade100,
       body: Container(
         height: MediaQuery.of(context).size.height,
-        width:  MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/dark.jpg'),
             fit: BoxFit.fill,
           ),
         ),
-         child: Column(
+        child: Column(
           children: [
             Row(
               children: [
@@ -94,6 +97,15 @@ class _ThirdPageState extends State<ThirdPage> {
                   itemCount: Lists.studentData.length,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
+                    Object imageHandler() {
+                      if (Lists.studentData[index]["imageUrl"] == "") {
+                        return const AssetImage("assets/images.png");
+                      } else {
+                        return NetworkImage(
+                            Lists.studentData[index]["imageUrl"]);
+                      }
+                    }
+
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -144,12 +156,13 @@ class _ThirdPageState extends State<ThirdPage> {
                               tag: '$index',
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.25,
-                                height: MediaQuery.of(context).size.height * 0.25,
-                                decoration: const BoxDecoration(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                                decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image: AssetImage('assets/images.png'),
-                                        fit: BoxFit.fill)),
+                                        image:
+                                            imageHandler() as ImageProvider)),
                               ),
                             ),
                             Column(
@@ -157,8 +170,8 @@ class _ThirdPageState extends State<ThirdPage> {
                                 Container(
                                     // color: Colors.black,
                                     margin: EdgeInsets.only(
-                                      right:
-                                          MediaQuery.of(context).size.width * 0.1,
+                                      right: MediaQuery.of(context).size.width *
+                                          0.1,
                                       top: MediaQuery.of(context).size.height *
                                           0.01,
                                     ),
@@ -170,12 +183,13 @@ class _ThirdPageState extends State<ThirdPage> {
                                     )),
                                 Container(
                                     margin: EdgeInsets.only(
-                                      right:
-                                          MediaQuery.of(context).size.width * 0.1,
+                                      right: MediaQuery.of(context).size.width *
+                                          0.1,
                                       top: MediaQuery.of(context).size.height *
                                           0.01,
                                     ),
-                                    child: Text(Lists.studentData[index]["usn"])),
+                                    child:
+                                        Text(Lists.studentData[index]["usn"])),
                               ],
                             ),
                             Column(
@@ -184,15 +198,17 @@ class _ThirdPageState extends State<ThirdPage> {
                                   onTap: () async {
                                     if (colorInt == index.toString()) {
                                       print(index);
-                                      await DatabaseHelper.instance.deleteRecord(
-                                          Lists.studentData[index]["usn"]);
+                                      await DatabaseHelper.instance
+                                          .deleteRecord(
+                                              Lists.studentData[index]["usn"]);
                                       FirebaseData().deleteData(
                                           Lists.studentData[index]["usn"]);
                                       Fluttertoast.showToast(msg: "Deleted");
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => FirstPage()));
+                                              builder: (context) =>
+                                                  FirstPage()));
                                     } else {
                                       Navigator.push(
                                           context,

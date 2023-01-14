@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -29,7 +27,7 @@ class _FourthPageState extends State<FourthPage> {
   final TextEditingController _controllerEmailId = TextEditingController();
   final TextEditingController _controllerBranch = TextEditingController();
   final TextEditingController _controllerSem = TextEditingController();
-String imageUrl="";
+  String imageUrl = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -45,6 +43,14 @@ String imageUrl="";
     _controllerSem.text = Lists.studentData[widget.index]["sem"];
   }
 
+  Object imageHandler() {
+    if (Lists.studentData[widget.index]["imageUrl"] == "") {
+      return const AssetImage("assets/images.png");
+    } else {
+      return NetworkImage(Lists.studentData[widget.index]["imageUrl"]);
+    }
+  }
+
   void showCustomDialog(BuildContext context) => showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -58,28 +64,26 @@ String imageUrl="";
                   vertical: 20.0,
                 ),
                 onPressed: () async {
-                  print("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
-                  ImagePicker imagePicker=ImagePicker();
-                  imagePicker.pickImage(source: ImageSource.camera);
-                  XFile? file  =await imagePicker.pickImage(source: ImageSource.camera);
-                  print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz");
-                  print(file);
-                  print("hfdjkssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssdsvzsdz");
-                  if(file==null){
-                      Fluttertoast.showToast(msg: "! file path");
-                      return ;
-                  }
+                  try {
+                    ImagePicker imagePicker = ImagePicker();
 
-                  try{
+                    XFile? file =
+                        await imagePicker.pickImage(source: ImageSource.camera);
 
-                    Reference referenceRoot=FirebaseStorage.instance.ref();
-                    Reference referenceDirImg=referenceRoot.child('fifthSemImage');
-                    Reference referenceToUpload=referenceDirImg.child('${file?.name}');
-                   await referenceToUpload.putFile(File(file.path));
-                    imageUrl=await referenceToUpload.getDownloadURL();
-                  }
-                  catch(e){
-                    Fluttertoast.showToast(msg: "Image not uploaded !");
+                    Reference referenceRoot = FirebaseStorage.instance.ref();
+                    Reference referenceDirImg =
+                        referenceRoot.child('fifthSemImage');
+                    Reference referenceToUpload =
+                        referenceDirImg.child('${file?.name}');
+                    await referenceToUpload.putFile(File(file!.path));
+                    imageUrl = await referenceToUpload.getDownloadURL();
+                    FirebaseData().imageUpload(
+                        Lists.studentData[widget.index]["usn"], imageUrl);
+                    DatabaseHelper.instance.updateImageRecord(
+                        Lists.studentData[widget.index]["usn"],
+                        {DatabaseHelper.dbimageUrl: imageUrl});
+                  } catch (e) {
+                    print(e);
                   }
                 },
                 child: const Text("Camera"),
@@ -90,8 +94,21 @@ String imageUrl="";
                   vertical: 20.0,
                 ),
                 onPressed: () async {
-                  ImagePicker imagePicker=ImagePicker();
-                  XFile? file  =await imagePicker.pickImage(source: ImageSource.gallery);
+                  ImagePicker imagePicker = ImagePicker();
+                  XFile? file =
+                      await imagePicker.pickImage(source: ImageSource.gallery);
+                  Reference referenceRoot = FirebaseStorage.instance.ref();
+                  Reference referenceDirImg =
+                      referenceRoot.child('fifthSemImage');
+                  Reference referenceToUpload =
+                      referenceDirImg.child('${file?.name}');
+                  await referenceToUpload.putFile(File(file!.path));
+                  imageUrl = await referenceToUpload.getDownloadURL();
+                  FirebaseData().imageUpload(
+                      Lists.studentData[widget.index]["usn"], imageUrl);
+                  DatabaseHelper.instance.updateImageRecord(
+                      Lists.studentData[widget.index]["usn"],
+                      {DatabaseHelper.dbimageUrl: imageUrl});
                 },
                 child: const Text("Gallery"),
               )
@@ -215,9 +232,9 @@ String imageUrl="";
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.blue.shade200),
                     shape: BoxShape.circle,
-                    image: const DecorationImage(
-                        image: AssetImage('assets/images.png'),
-                        fit: BoxFit.fill)),
+                    image: DecorationImage(
+                      image: imageHandler() as ImageProvider,
+                    )),
                 child: Stack(
                   children: [
                     GestureDetector(

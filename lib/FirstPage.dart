@@ -32,10 +32,10 @@ class _FirstPageState extends State<FirstPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-     // backgroundColor: Colors.cyan.shade100,
+      // backgroundColor: Colors.cyan.shade100,
       body: Container(
         height: MediaQuery.of(context).size.height,
-        width:  MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/dark.jpg'),
@@ -49,7 +49,7 @@ class _FirstPageState extends State<FirstPage> {
                 Container(
                   height: MediaQuery.of(context).size.width * 0.7,
                   width: MediaQuery.of(context).size.width,
-                  decoration:  BoxDecoration(
+                  decoration: BoxDecoration(
                       color: Colors.lightBlue.shade600,
                       borderRadius: const BorderRadius.only(
                           bottomRight: Radius.circular(90),
@@ -57,8 +57,9 @@ class _FirstPageState extends State<FirstPage> {
                   child: Stack(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15,left:
-                        MediaQuery.of(context).size.width * 0.02),
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.15,
+                            left: MediaQuery.of(context).size.width * 0.02),
                         child: const Text(
                           "Contact App",
                           style: TextStyle(
@@ -132,9 +133,11 @@ class _FirstPageState extends State<FirstPage> {
                                                   )));
                                     } catch (e) {
                                       print(e.toString());
-                                      Fluttertoast.showToast(msg: "Invalid USN");
+                                      Fluttertoast.showToast(
+                                          msg: "Invalid USN");
                                     }
-                                  } else if (_controllerSearch.text.length < 10) {
+                                  } else if (_controllerSearch.text.length <
+                                      10) {
                                     Fluttertoast.showToast(msg: "Invalid USN");
                                   }
                                 },
@@ -159,7 +162,9 @@ class _FirstPageState extends State<FirstPage> {
                     style: const TextStyle(color: Colors.white),
                     iconEnabledColor: Colors.blue.shade50,
                     dropdownColor: Colors.blue.shade200,
-                    hint:  Center(child: Text("Branch",
+                    hint: Center(
+                        child: Text(
+                      "Branch",
                       style: TextStyle(color: Colors.blue.shade50),
                     )),
                     isExpanded: true,
@@ -180,9 +185,11 @@ class _FirstPageState extends State<FirstPage> {
                   child: DropdownButton<String>(
                     style: const TextStyle(color: Colors.white),
                     iconEnabledColor: Colors.blue.shade50,
-                    dropdownColor:  Colors.blue.shade200,
-                    hint:  Center(child: Text("Sem",
-                        style: TextStyle(color: Colors.blue.shade50),
+                    dropdownColor: Colors.blue.shade200,
+                    hint: Center(
+                        child: Text(
+                      "Sem",
+                      style: TextStyle(color: Colors.blue.shade50),
                     )),
                     isExpanded: true,
                     value: value1,
@@ -249,7 +256,7 @@ class _FirstPageState extends State<FirstPage> {
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.52),
                 decoration: BoxDecoration(
-                  color:  Colors.blue.shade200,
+                  color: Colors.blue.shade200,
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
                     width: 2,
@@ -305,6 +312,7 @@ class _FirstPageState extends State<FirstPage> {
       ),
     );
   }
+
   DropdownMenuItem<String> buildMenuItem(String item) =>
       DropdownMenuItem(value: item, child: Text(item));
 }

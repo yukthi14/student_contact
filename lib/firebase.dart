@@ -21,7 +21,6 @@ class FirebaseData {
           studentData.add(element.value);
         }
         int i = 1;
-        print(studentData.length);
 
         for (i = 0; i < studentData.length; i++) {
           await DatabaseHelper.instance.insertRecord({
@@ -37,8 +36,8 @@ class FirebaseData {
             DatabaseHelper.dbGender: studentData[i]["gender"],
             DatabaseHelper.dbSem: studentData[i]["sem"],
             DatabaseHelper.dbYearOfAdmission: studentData[i]["yearOfAdmission"],
+            DatabaseHelper.dbimageUrl: studentData[i]["imageUrl"],
           });
-          print(i);
         }
       });
     } catch (e) {
@@ -71,7 +70,6 @@ class FirebaseData {
       DatabaseReference databse =
           FirebaseDatabase.instance.ref().child("$i").child("usn");
       databse.once().then((var snapshot) async {
-        print(snapshot.snapshot.value);
         if (snapshot.snapshot.value == usn) {
           DatabaseReference deleteDatabase =
               FirebaseDatabase.instance.ref().child("$i");
@@ -87,7 +85,6 @@ class FirebaseData {
       DatabaseReference databse =
           FirebaseDatabase.instance.ref().child("$i").child("usn");
       databse.once().then((var snapshot) async {
-        print(snapshot.snapshot.value);
         if (snapshot.snapshot.value == usn) {
           DatabaseReference updateDatabase =
               FirebaseDatabase.instance.ref().child("$i");
@@ -100,6 +97,20 @@ class FirebaseData {
             'emailAddress ': email,
             'sem': sem,
           });
+        }
+      });
+    }
+  }
+
+  imageUpload(String usn, String url) {
+    for (int i = 0; i <= Lists.lengthData; i++) {
+      DatabaseReference databse =
+          FirebaseDatabase.instance.ref().child("$i").child("usn");
+      databse.once().then((var snapshot) async {
+        if (snapshot.snapshot.value == usn) {
+          DatabaseReference deleteDatabase =
+              FirebaseDatabase.instance.ref().child("$i");
+          await deleteDatabase.update({'imageUrl': url});
         }
       });
     }
