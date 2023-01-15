@@ -9,9 +9,10 @@ class FirebaseData {
   String fifthSem = "5th Sem";
   String seventhSem = "7th Sem";
   var studentData = [];
-  static bool sqflitePush = true;
+  static bool sqfLitePush = true;
 
   getStudentData() async {
+    SharedPreferences refps = await SharedPreferences.getInstance();
     try {
       final ref = FirebaseDatabase.instance.ref();
       ref.once().then((var snapshot) async {
@@ -43,6 +44,7 @@ class FirebaseData {
     } catch (e) {
       throw Exception(e.toString());
     }
+    refps.setString("checker", "done");
   }
 
   pushData(String name, String number, String usn, String fname, String fnumber,

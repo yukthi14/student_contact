@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_contact/SecondPage.dart';
 import 'package:student_contact/ThirdPage.dart';
 import 'package:student_contact/firebase.dart';
@@ -18,10 +19,20 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
   @override
   void initState() {
-    FirebaseData().getStudentData();
+    setVal();
+    if (checker == "") {
+      FirebaseData().getStudentData();
+    }
     super.initState();
   }
 
+  setVal() async {
+    SharedPreferences ref = await SharedPreferences.getInstance();
+    ref.setString("checker", "");
+    checker = ref.getString("checker")!;
+  }
+
+  String checker = "";
   String? value;
   String? value1;
   final branch = ['ISE', 'CSE', 'ME', 'ECE', 'AI'];
@@ -47,7 +58,7 @@ class _FirstPageState extends State<FirstPage> {
             Row(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.35,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.lightBlue.shade600,
@@ -58,8 +69,8 @@ class _FirstPageState extends State<FirstPage> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.13,
-                            left: MediaQuery.of(context).size.width * 0.02,
+                          top: MediaQuery.of(context).size.height * 0.13,
+                          left: MediaQuery.of(context).size.width * 0.02,
                         ),
                         child: const Text(
                           "Contact App",
@@ -70,6 +81,11 @@ class _FirstPageState extends State<FirstPage> {
                         ),
                       ),
                       Container(
+                        margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.293,
+                          left: MediaQuery.of(context).size.width * 0.03,
+                          right: MediaQuery.of(context).size.width * 0.03,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade100,
                           borderRadius: BorderRadius.circular(30),
@@ -93,20 +109,15 @@ class _FirstPageState extends State<FirstPage> {
                           //   ), //BoxShadow
                           // ],
                         ),
-                        margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.27,
-                          left: MediaQuery.of(context).size.width * 0.03,
-                          right: MediaQuery.of(context).size.width * 0.03,
-                        ),
-                        //height: 100,
                         child: Row(
-                          children: <Widget>[
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
                             Container(
                               width: MediaQuery.of(context).size.width * 0.75,
                               height: MediaQuery.of(context).size.height * 0.05,
-                              margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.07,
-                              ),
+                              // margin: EdgeInsets.only(
+                              //   left: MediaQuery.of(context).size.width * 0.07,
+                              // ),
                               child: TextField(
                                 maxLength: 10,
                                 controller: _controllerSearch,
@@ -256,7 +267,7 @@ class _FirstPageState extends State<FirstPage> {
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.06,
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.49),
+                    top: MediaQuery.of(context).size.height * 0.465),
                 decoration: BoxDecoration(
                   color: Colors.blue.shade200,
                   borderRadius: BorderRadius.circular(30),
