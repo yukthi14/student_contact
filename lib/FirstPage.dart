@@ -58,8 +58,9 @@ class _FirstPageState extends State<FirstPage> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.15,
-                            left: MediaQuery.of(context).size.width * 0.02),
+                            top: MediaQuery.of(context).size.height * 0.13,
+                            left: MediaQuery.of(context).size.width * 0.02,
+                        ),
                         child: const Text(
                           "Contact App",
                           style: TextStyle(
@@ -97,11 +98,12 @@ class _FirstPageState extends State<FirstPage> {
                           left: MediaQuery.of(context).size.width * 0.03,
                           right: MediaQuery.of(context).size.width * 0.03,
                         ),
+                        //height: 100,
                         child: Row(
                           children: <Widget>[
                             Container(
                               width: MediaQuery.of(context).size.width * 0.75,
-                              height: MediaQuery.of(context).size.height * 0.06,
+                              height: MediaQuery.of(context).size.height * 0.05,
                               margin: EdgeInsets.only(
                                 left: MediaQuery.of(context).size.width * 0.07,
                               ),
@@ -254,7 +256,7 @@ class _FirstPageState extends State<FirstPage> {
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.06,
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.52),
+                    top: MediaQuery.of(context).size.height * 0.49),
                 decoration: BoxDecoration(
                   color: Colors.blue.shade200,
                   borderRadius: BorderRadius.circular(30),
