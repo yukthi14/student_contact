@@ -22,7 +22,6 @@ class FirebaseData {
           studentData.add(element.value);
         }
         int i = 1;
-
         for (i = 0; i < studentData.length; i++) {
           await DatabaseHelper.instance.insertRecord({
             DatabaseHelper.dbStudentName: studentData[i]["studentName"],
@@ -37,7 +36,7 @@ class FirebaseData {
             DatabaseHelper.dbGender: studentData[i]["gender"],
             DatabaseHelper.dbSem: studentData[i]["sem"],
             DatabaseHelper.dbYearOfAdmission: studentData[i]["yearOfAdmission"],
-            DatabaseHelper.dbimageUrl: studentData[i]["imageUrl"],
+            DatabaseHelper.dbImageUrl: studentData[i]["imageUrl"],
           });
         }
       });
@@ -49,22 +48,28 @@ class FirebaseData {
 
   pushData(String name, String number, String usn, String fname, String fnumber,
       String email, String branch, String sem) async {
-    SharedPreferences refs = await SharedPreferences.getInstance();
-    int? val = refs.getInt("dataLength");
-
-    DatabaseReference databse =
-        FirebaseDatabase.instance.ref().child("${val! + 1}");
-    await databse.update({
-      'studentName': name,
-      'studentNumber': number,
-      'usn': usn,
-      'branch': branch,
-      'fatherName': fname,
-      'fatherNumber': fnumber,
-      'emailAddress ': email,
-      'sem': sem,
-    });
-    refs.setInt("dataLength", val + 1);
+    int val;
+    try {
+      final ref = FirebaseDatabase.instance.ref();
+      ref.once().then((var snapshot) async {
+        val = snapshot.snapshot.children.length;
+        print(val);
+        print("///////////////////////////////////////////////////////");
+        DatabaseReference databse =
+            FirebaseDatabase.instance.ref().child("${val + 3}");
+        await databse.update({
+          'studentName': name,
+          'studentNumber': number,
+          'usn': usn,
+          'branch': branch,
+          'fatherName': fname,
+          'fatherNumber': fnumber,
+          'emailAddress ': email,
+          'sem': sem,
+          'imageUrl': ""
+        });
+      });
+    } catch (e) {}
   }
 
   deleteData(String usn) async {

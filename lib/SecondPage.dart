@@ -17,6 +17,7 @@ class _SecondPageState extends State<SecondPage> {
   final TextEditingController _controllerFatherName = TextEditingController();
   final TextEditingController _controllerFatherNumber = TextEditingController();
   final TextEditingController _controllerEmailId = TextEditingController();
+  String nullValue = "";
 
   String? branchValue;
   String? semValue;
@@ -33,7 +34,7 @@ class _SecondPageState extends State<SecondPage> {
       backgroundColor: Colors.cyan.shade100,
       body: Container(
         height: MediaQuery.of(context).size.height,
-        width:  MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/dark.jpg'),
@@ -81,8 +82,8 @@ class _SecondPageState extends State<SecondPage> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.07,
-              margin:
-                  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.1),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.blue.shade200),
                 borderRadius: BorderRadius.circular(40),
@@ -319,8 +320,10 @@ class _SecondPageState extends State<SecondPage> {
                   child: DropdownButton<String>(
                     style: const TextStyle(color: Colors.white),
                     iconEnabledColor: Colors.blue.shade50,
-                    dropdownColor:  Colors.blue.shade200,
-                    hint:  Center(child: Text("Branch", style: TextStyle(color: Colors.blue.shade50))),
+                    dropdownColor: Colors.blue.shade200,
+                    hint: Center(
+                        child: Text("Branch",
+                            style: TextStyle(color: Colors.blue.shade50))),
                     isExpanded: true,
                     value: branchValue,
                     items: branch.map(buildMenuItem).toList(),
@@ -339,8 +342,10 @@ class _SecondPageState extends State<SecondPage> {
                   child: DropdownButton<String>(
                     style: const TextStyle(color: Colors.white),
                     iconEnabledColor: Colors.blue.shade50,
-                    dropdownColor:  Colors.blue.shade200,
-                    hint:  Center(child: Text("Sem", style: TextStyle(color: Colors.blue.shade50))),
+                    dropdownColor: Colors.blue.shade200,
+                    hint: Center(
+                        child: Text("Sem",
+                            style: TextStyle(color: Colors.blue.shade50))),
                     isExpanded: true,
                     value: semValue,
                     items: sem.map(buildMenuItem).toList(),
@@ -388,16 +393,18 @@ class _SecondPageState extends State<SecondPage> {
                         DatabaseHelper.dbEmailAddress: _controllerEmailId.text,
                         DatabaseHelper.dbBranch: branchValue,
                         DatabaseHelper.dbSem: semValue,
+                        DatabaseHelper.dbImageUrl: nullValue
                       });
                       FirebaseData().pushData(
-                          _controllerName.text,
-                          _controllerPhoneNumber.text,
-                          _controllerUSN.text,
-                          _controllerFatherName.text,
-                          _controllerFatherNumber.text,
-                          _controllerEmailId.text,
-                          branchValue!,
-                          semValue!);
+                        _controllerName.text,
+                        _controllerPhoneNumber.text,
+                        _controllerUSN.text,
+                        _controllerFatherName.text,
+                        _controllerFatherNumber.text,
+                        _controllerEmailId.text,
+                        branchValue!,
+                        semValue!,
+                      );
                       Fluttertoast.showToast(msg: "Inserted");
                       Navigator.pop(context);
                     }
@@ -438,7 +445,8 @@ class _SecondPageState extends State<SecondPage> {
                       style: TextStyle(
                           fontSize: 25,
                           color: Colors.black,
-                          fontStyle: FontStyle.italic,fontWeight: FontWeight.w400),
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w400),
                     )),
                   ),
                 ),

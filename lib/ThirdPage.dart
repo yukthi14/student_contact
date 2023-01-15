@@ -196,6 +196,7 @@ class _ThirdPageState extends State<ThirdPage> {
                               children: [
                                 GestureDetector(
                                   onTap: () async {
+                                    print(Lists.studentData[index]);
                                     if (colorInt == index.toString()) {
                                       print(index);
                                       await DatabaseHelper.instance

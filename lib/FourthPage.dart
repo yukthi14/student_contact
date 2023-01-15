@@ -81,7 +81,7 @@ class _FourthPageState extends State<FourthPage> {
                         Lists.studentData[widget.index]["usn"], imageUrl);
                     DatabaseHelper.instance.updateImageRecord(
                         Lists.studentData[widget.index]["usn"],
-                        {DatabaseHelper.dbimageUrl: imageUrl});
+                        {DatabaseHelper.dbImageUrl: imageUrl});
                   } catch (e) {
                     print(e);
                   }
@@ -108,7 +108,7 @@ class _FourthPageState extends State<FourthPage> {
                       Lists.studentData[widget.index]["usn"], imageUrl);
                   DatabaseHelper.instance.updateImageRecord(
                       Lists.studentData[widget.index]["usn"],
-                      {DatabaseHelper.dbimageUrl: imageUrl});
+                      {DatabaseHelper.dbImageUrl: imageUrl});
                 },
                 child: const Text("Gallery"),
               )
